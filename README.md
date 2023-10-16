@@ -1,6 +1,6 @@
 # VECTOR BENDING
 
-[![Furby Organ Example](https://github.com/badalmer/Generative-Painting/blob/main/SVG_VectorBend/images/lmnc%20-%20furbies.jpg)](https://www.youtube.com/watch?v=GYLBjScgb7o)
+[![Furby Organ Example](https://github.com/badalmer/SVG_VectorBend/blob/6af8ef32a589c678c28bc5188fc2111870cd7ffd/images/lmnc%20-%20furbies.jpg)](https://www.youtube.com/watch?v=GYLBjScgb7o)
 
 Circuit bending is the act of interrupting electrical connections using various switches, potentiometers, or even just a few static resistors. By doing this, the user is able to modulate the electrical signals passing through the circuit. In practice, usually in audio applications this can result in strange drone-like sounds. In 2018 [Youtuber Sam Battle or Look Mum No Computer](https://www.youtube.com/watch?v=GYLBjScgb7o) took this to an extreme with the creation of “The Furby Organ''. Housed in a traditionally oak finished electric organ composed of 44 furbys each with the ability to be keyed to a different octave. With the flick of the “collective awakening switch”, the furbys all spring to life in unison. Their eyes start to blink, their furry groans of 90’s nostalgia begin to sync. A looping-freeze button sustains them into an endless tone - reminiscent of the jarring sound of a computer program freezing. The guts of the machine are a nest of wires and terminal strips connected to each Furby’s PCB board.
 
@@ -35,18 +35,18 @@ Hypothetically, if given the correct information - any image could be created. T
 ***
 ## The Code
 
-https://github.com/badalmer/Generative-Painting/blob/e8becddbb723e6477d1beb5c5aa97f0a389368fa/SVG_VectorBend/SVG_VectorBend.pde#L1-L82
+https://github.com/badalmer/SVG_VectorBend/blob/6af8ef32a589c678c28bc5188fc2111870cd7ffd/SVG_VectorBend.pde#L1-L82
 
 ***
 **Global Settings**
 
-[*numCopy*](https://github.com/badalmer/Generative-Painting/blob/5bee838fa1bce13befae92b5a9f31e4a35a75e15/SVG_VectorBend/SVG_VectorBend.pde#L15) - the number of output files we ultimately want. Be careful with this number. 
+[*numCopy*](https://github.com/badalmer/SVG_VectorBend/blob/6af8ef32a589c678c28bc5188fc2111870cd7ffd/SVG_VectorBend.pde#L15) - the number of output files we ultimately want. Be careful with this number. 
 
-[*corLevel*](https://github.com/badalmer/Generative-Painting/blob/5bee838fa1bce13befae92b5a9f31e4a35a75e15/SVG_VectorBend/SVG_VectorBend.pde#L16) - the corruption level. The higher the number the more extreme the bend. I keep this below 10,000.
+[*corLevel*](https://github.com/badalmer/SVG_VectorBend/blob/6af8ef32a589c678c28bc5188fc2111870cd7ffd/SVG_VectorBend.pde#L16) - the corruption level. The higher the number the more extreme the bend. I keep this below 10,000.
 
-[*colorRefresh*](https://github.com/badalmer/Generative-Painting/blob/5bee838fa1bce13befae92b5a9f31e4a35a75e15/SVG_VectorBend/SVG_VectorBend.pde#L17) - true or false, this allows the program to grab new colors for each file. Some colors might be picked more than once.
+[*colorRefresh*](https://github.com/badalmer/SVG_VectorBend/blob/6af8ef32a589c678c28bc5188fc2111870cd7ffd/SVG_VectorBend.pde#L17) - true or false, this allows the program to grab new colors for each file. Some colors might be picked more than once.
 
-[*colorNum*](https://github.com/badalmer/Generative-Painting/blob/5bee838fa1bce13befae92b5a9f31e4a35a75e15/SVG_VectorBend/SVG_VectorBend.pde#L18) - how many colors we might want. Maximum is 16.
+[*colorNum*](https://github.com/badalmer/SVG_VectorBend/blob/6af8ef32a589c678c28bc5188fc2111870cd7ffd/SVG_VectorBend.pde#L18) - how many colors we might want. Maximum is 16.
 
 ***
 **Draw**
