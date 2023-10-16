@@ -58,7 +58,7 @@ This is where the magic happens. This program is essentially translating a vecto
 
 Before outputting a file. The program will replace the original color data or the **fill** section of the file with a new color. These new colors are pulled from a list, taken from the [16 unique colors of the Commodore 64 system](https://www.c64-wiki.com/wiki/Color). A nostalgic source of computing for me.
 
-https://github.com/badalmer/Generative-Painting/blob/5bee838fa1bce13befae92b5a9f31e4a35a75e15/SVG_VectorBend/SVG_VectorBend.pde#L84-L107
+[*COMMODORE 64 COLORS*](https://github.com/badalmer/SVG_VectorBend/blob/6af8ef32a589c678c28bc5188fc2111870cd7ffd/SVG_VectorBend.pde#L16#L84-L107)
 
 We can simply drag and drop a .SVG image into the sketch and start getting some outputs. Let's start with this image.
 
