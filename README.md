@@ -51,7 +51,7 @@ https://github.com/badalmer/SVG_VectorBend/blob/6af8ef32a589c678c28bc5188fc21118
 ***
 **Draw**
 
-This is where the magic happens. This program is essentially translating a vector file into a [String](https://p5js.org/reference/#/p5/string), or series of characters. It will skip the first 30 lines of the selected file in order to prevent corruption. Then, based on the value of [*corLevel*](https://github.com/badalmer/Generative-Painting/blob/5bee838fa1bce13befae92b5a9f31e4a35a75e15/SVG_VectorBend/SVG_VectorBend.pde#L16), it will cycle through each character looking for a random number (between 10 and 150). Once found, it then replaces this number with another number (between 0 and 500). This section can be modified; however, I’ve found an aesthetic sweet spot here.
+This is where the magic happens. This program is essentially translating a vector file into a [String](https://p5js.org/reference/#/p5/string), or series of characters. It will skip the first 30 lines of the selected file in order to prevent corruption. Then, based on the value of [*corLevel*](https://github.com/badalmer/SVG_VectorBend/blob/6af8ef32a589c678c28bc5188fc2111870cd7ffd/SVG_VectorBend.pde#L16), it will cycle through each character looking for a random number (between 10 and 150). Once found, it then replaces this number with another number (between 0 and 500). This section can be modified; however, I’ve found an aesthetic sweet spot here.
 
 ***
 **Recolor**
@@ -62,16 +62,16 @@ https://github.com/badalmer/Generative-Painting/blob/5bee838fa1bce13befae92b5a9f
 
 We can simply drag and drop a .SVG image into the sketch and start getting some outputs. Let's start with this image.
 
-![original image](https://github.com/badalmer/Generative-Painting/blob/main/SVG_VectorBend/images/cloud02.jpg)
+![original image](https://github.com/badalmer/SVG_VectorBend/blob/7f279a61c8b4878df9952b92dd7a3c30b1deb288/images/cloud02.jpg)
 >**Original Image*
 
 The new file is then saved in the sketch folder of the program. Here are some examples:
 
-![example 01](https://github.com/badalmer/Generative-Painting/blob/main/SVG_VectorBend/images/BEND-12023_102.png)
+![example 01](https://github.com/badalmer/SVG_VectorBend/blob/7f279a61c8b4878df9952b92dd7a3c30b1deb288/images/BEND-12023_102.png)
 >**Example Output 01*
 
-![example 02](https://github.com/badalmer/Generative-Painting/blob/main/SVG_VectorBend/images/BEND-12023_257.png)
+![example 02](https://github.com/badalmer/SVG_VectorBend/blob/7f279a61c8b4878df9952b92dd7a3c30b1deb288/images/BEND-12023_257.png)
 >**Example Output 02*
 
-![example 03](https://github.com/badalmer/Generative-Painting/blob/main/SVG_VectorBend/images/BEND-12023_745.png)
+![example 03](https://github.com/badalmer/SVG_VectorBend/blob/7f279a61c8b4878df9952b92dd7a3c30b1deb288/images/BEND-12023_745.png)
 >**Example Output 03*
