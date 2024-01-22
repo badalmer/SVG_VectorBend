@@ -6,6 +6,7 @@ let numCopy = 5;
 let corLevel = 66;
 let colorRefresh = true;
 let colorNum = 6;
+let fileInput;
 
 function setup() {
   createCanvas(250, 250);
@@ -15,6 +16,14 @@ function setup() {
   fill('#0088FF');
   text("DRAG 2 BEND", width / 2, height / 2);
   text("do not close", width / 2, height / 2 + 40);
+
+  // Create file input
+  fileInput = createFileInput(handleFile);
+  fileInput.position(width / 2 - 100, height / 2 + 60);
+  fileInput.style('color', '#0088FF');
+  fileInput.style('font-size', '16px');
+  fileInput.style('padding', '8px');
+
   colorPack = new Array(colorNum);
 }
 
@@ -53,11 +62,17 @@ function recolor(oldData) {
   }
 }
 
-function dropEvent(theDropEvent) {
-  if (theDropEvent.isFile()) {
-    myFile = theDropEvent.file();
-    svgText = loadStrings(myFile.toString());
+function handleFile(file) {
+  if (file.type === 'image/svg+xml') {
+    myFile = file;
+    svgText = loadStrings(file.data, processSVG);
+  } else {
+    console.error("Please upload an SVG file.");
   }
+}
+
+function processSVG() {
+  redraw(); // Trigger a redraw to start processing the uploaded SVG
 }
 
 function RandPick() {
