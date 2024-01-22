@@ -97,8 +97,13 @@
     function handleFile(files) {
       if (files.length > 0) {
         myFile = files[0];
-        svgText = loadStrings(myFile.data, processSVG);
-      }
+        let reader = new FileReader();
+        reader.onload = function (event) {
+          svgText = event.target.result.split('\n');
+          processSVG();
+        };
+        reader.readAsText(myFile);
+      } 
     }
 
     function processSVG() {
