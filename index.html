@@ -134,6 +134,10 @@
         };
         resultDiv.appendChild(svgContainer);
 
+        // Create a new SVG container for each iteration
+        let svgElement = createSVGElement(svgText);
+        resultDiv.appendChild(svgElement);
+
         for (let j = 0; j < svgText.length; j++) {
           if (j > 30) {
             for (let c = 0; c < corLevel; c++) {
