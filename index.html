@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,12 +10,13 @@
       color: white;
     }
 
+    /* Style the "Choose File" input element */
     #fileInput {
-      background-color: #0088FF;
-      color: white;
-      padding: 10px;
-      border: none;
-      cursor: pointer;
+      background-color: #0088FF; /* Background color */
+      color: white; /* Text color */
+      padding: 10px; /* Padding around the text */
+      border: none; /* Remove the border */
+      cursor: pointer; /* Change cursor to a pointer on hover */
       font-size: 16px;
     }
 
@@ -40,15 +42,8 @@
       text-decoration: underline;
     }
 
-    .svg-container {
-      width: 100%;
-      height: 250px;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .svg-preview {
-      width: 48%;
+    iframe {
+      margin-bottom: 20px;
     }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
@@ -56,20 +51,49 @@
 
 <body>
   <h1>SVG Glitcher</h1>
-  <p>Upload an SVG file to start the glitch process.</p>
+  <p>Upload an SVG file to start the glitching process.</p>
   <input type="file" id="fileInput" accept=".svg" onchange="handleFile(this.files)">
   <div id="output"></div>
+  <canvas id="canvas"></canvas>
 
   <script>
     let svgText;
     let newData;
-    let numCopy = 2;
+    let colorPack;
+    let myFile;
+    let numCopy = 2; // Display at least 2 results
     let corLevel = 66;
+    let colorRefresh = true;
+    let colorNum = 6;
+    let fileInput;
+
+    function setup() {
+      createCanvas(250, 250);
+
+      // Create file input
+      fileInput = document.getElementById("fileInput");
+      fileInput.style.backgroundColor = '#0088FF';
+      fileInput.style.color = 'white';
+      fileInput.style.padding = '10px';
+      fileInput.style.border = 'none';
+      fileInput.style.cursor = 'pointer';
+      fileInput.style.fontSize = '16px';
+
+      colorPack = new Array(colorNum);
+    }
+
+    function draw() {
+      // Your draw function remains the same
+    }
 
     function recolor(oldData) {
       let c = oldData.match(/fill:(.*?);}/);
       if (c != null) {
-        newData = oldData.replace(c[0], RandPick());
+        if (colorRefresh) {
+          newData = oldData.replace(c[0], RandPick());
+        } else {
+          newData = oldData.replace(c[0], colorPack[int(random(colorPack.length))]);
+        }
       } else {
         newData = oldData;
       }
@@ -77,7 +101,7 @@
 
     function handleFile(files) {
       if (files.length > 0) {
-        let myFile = files[0];
+        myFile = files[0];
         let reader = new FileReader();
         reader.onload = function (event) {
           svgText = event.target.result.split('\n');
@@ -95,23 +119,29 @@
         let resultDiv = document.createElement("div");
         resultDiv.classList.add("result");
 
-        let svgContainer = document.createElement("div");
-        svgContainer.classList.add("svg-container");
+        let svgContainer = document.createElement("iframe");
+        svgContainer.style.width = "100%";
+        svgContainer.style.height = "250px"; // Set the desired height
 
-        let originalIframe = document.createElement("iframe");
-        originalIframe.classList.add("svg-preview");
-        originalIframe.srcdoc = svgText.join('\n');
+        let originalSVG = createSVGElement(svgText);
+        let glitchedSVG = createSVGElement(svgText);
 
-        recolorSVG();
-        
-        let modifiedIframe = document.createElement("iframe");
-        modifiedIframe.classList.add("svg-preview");
-        modifiedIframe.srcdoc = newData;
-
-        svgContainer.appendChild(originalIframe);
-        svgContainer.appendChild(modifiedIframe);
+        // Append the original SVG and glitched SVG to the iframe document
+        svgContainer.contentDocument.body.appendChild(originalSVG);
+        svgContainer.contentDocument.body.appendChild(glitchedSVG);
 
         resultDiv.appendChild(svgContainer);
+
+        for (let j = 0; j < svgText.length; j++) {
+          if (j > 30) {
+            for (let c = 0; c < corLevel; c++) {
+              recolor(svgText[j]);
+            }
+          } else {
+          recolor(svgText[j]);
+          }
+          resultDiv.innerHTML += newData + "<br>";
+        }
 
         outputDiv.appendChild(resultDiv);
         createDownloadLink(newData, i);
@@ -120,17 +150,22 @@
       noLoop();
     }
 
-    function recolorSVG() {
-      for (let j = 0; j < svgText.length; j++) {
-        if (j > 30) {
-          for (let c = 0; c < corLevel; c++) {
-            recolor(svgText[j]);
-          }
-        } else {
-          recolor(svgText[j]);
-        }
-      }
+    function createSVGElement(svgText) {
+      let svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svgElement.setAttribute("width", "250");
+      svgElement.setAttribute("height", "250");
+
+      // Parse the original SVG text and create corresponding SVG elements
+      let parser = new DOMParser();
+      let originalDoc = parser.parseFromString(svgText.join('\n'), "image/svg+xml");
+      let originalSVG = originalDoc.documentElement.cloneNode(true);
+
+      // Append the original SVG element to the result div
+      svgElement.appendChild(originalSVG);
+
+      return svgElement;
     }
+
 
     function createDownloadLink(data, index) {
       let downloadLink = document.createElement("a");
@@ -150,4 +185,5 @@
     }
   </script>
 </body>
+
 </html>
