@@ -115,31 +115,50 @@
         let resultDiv = document.createElement("div");
         resultDiv.classList.add("result");
 
-        let svgContainer = document.createElement("iframe");
-        svgContainer.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svgText.join('\n'));
-        svgContainer.style.width = "100%";
-        svgContainer.style.height = "250px"; // Set the desired height
+        let svgContainer = document.createElement("div");
+        svgContainer.classList.add("svg-container");
 
-        resultDiv.appendChild(svgContainer);
+        // Create an SVG element
+        let svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svgElement.setAttribute("width", "250");
+        svgElement.setAttribute("height", "250");
 
         for (let j = 0; j < svgText.length; j++) {
           if (j > 30) {
-          for (let c = 0; c < corLevel; c++) {
+            for (let c = 0; c < corLevel; c++) {
+              recolor(svgText[j]);
+            }
+          } else {
             recolor(svgText[j]);
           }
-        } else {
-          recolor(svgText[j]);
-        }
-        resultDiv.innerHTML += newData + "<br>";
-      }
 
-      outputDiv.appendChild(resultDiv);
-      createDownloadLink(newData, i);
-      corLevel += 500;
+          // Create a new SVG path element for each line in the glitched data
+          let pathElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
+          pathElement.setAttribute("d", newData);
+          pathElement.setAttribute("fill", "none");
+
+          // Append the path to the SVG element
+          svgElement.appendChild(pathElement);
+        }
+
+        // Append the SVG element to the container
+        svgContainer.appendChild(svgElement);
+
+        // Append the SVG container to the result div
+        resultDiv.appendChild(svgContainer);
+
+        // Create a download link for each glitched result
+        createDownloadLink(newData, i);
+
+        // Append the result div to the output div
+        outputDiv.appendChild(resultDiv);
+
+        // Increase corruption level for the next iteration
+        corLevel += 500;
+      }
+      noLoop();
     }
-    noLoop();
-  }
-    
+
     function createDownloadLink(data, index) {
       let downloadLink = document.createElement("a");
       downloadLink.classList.add("download-link");
