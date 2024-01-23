@@ -116,9 +116,15 @@
         resultDiv.classList.add("result");
 
         let svgContainer = document.createElement("iframe");
-        svgContainer.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svgText.join('\n'));
         svgContainer.style.width = "100%";
         svgContainer.style.height = "250px"; // Set the desired height
+
+        let originalSVG = createSVGElement(svgText);
+        let glitchedSVG = createSVGElement(svgText);
+
+        // Append the original SVG and glitched SVG to the iframe document
+        svgContainer.contentDocument.body.appendChild(originalSVG);
+        svgContainer.contentDocument.body.appendChild(glitchedSVG);
 
         resultDiv.appendChild(svgContainer);
 
@@ -128,7 +134,7 @@
               recolor(svgText[j]);
             }
           } else {
-            recolor(svgText[j]);
+          recolor(svgText[j]);
           }
           resultDiv.innerHTML += newData + "<br>";
         }
@@ -138,6 +144,22 @@
         corLevel += 500;
       }
       noLoop();
+    }
+
+    function createSVGElement(svgText) {
+      let svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svgElement.setAttribute("width", "250");
+      svgElement.setAttribute("height", "250");
+
+      // Parse the original SVG text and create corresponding SVG elements
+      let parser = new DOMParser();
+      let originalDoc = parser.parseFromString(svgText.join('\n'), "image/svg+xml");
+      let originalSVG = originalDoc.documentElement.cloneNode(true);
+
+      // Append the original SVG element to the result div
+      svgElement.appendChild(originalSVG);
+
+      return svgElement;
     }
 
 
