@@ -125,18 +125,10 @@
         let uniqueId = "svgFrame" + i;
         svgContainer.id = uniqueId;
         svgContainer.onload = function() {
-          let originalSVG = createSVGElement(svgText);
-          let glitchedSVG = createSVGElement(svgText);
-
-          // Append the original SVG and glitched SVG to the iframe document
-          svgContainer.contentDocument.body.appendChild(originalSVG);
-          svgContainer.contentDocument.body.appendChild(glitchedSVG);
+          let processedSVG = createSVGElement(svgText); // Create processed SVG
+          svgContainer.contentDocument.body.appendChild(processedSVG); // Append processed SVG to iframe document
         };
         resultDiv.appendChild(svgContainer);
-
-        // Create a new SVG container for each iteration
-        let svgElement = createSVGElement(svgText);
-        resultDiv.appendChild(svgElement);
 
         for (let j = 0; j < svgText.length; j++) {
           if (j > 30) {
