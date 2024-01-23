@@ -115,13 +115,12 @@
         let resultDiv = document.createElement("div");
         resultDiv.classList.add("result");
 
-        let svgContainer = document.createElement("div");
-        svgContainer.classList.add("svg-container");
+        let svgContainer = document.createElement("iframe");
+        svgContainer.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svgText.join('\n'));
+        svgContainer.style.width = "100%";
+        svgContainer.style.height = "250px"; // Set the desired height
 
-        // Create an SVG element
-        let svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        svgElement.setAttribute("width", "250");
-        svgElement.setAttribute("height", "250");
+        resultDiv.appendChild(svgContainer);
 
         for (let j = 0; j < svgText.length; j++) {
           if (j > 30) {
@@ -131,33 +130,16 @@
           } else {
             recolor(svgText[j]);
           }
-
-          // Create a new SVG path element for each line in the glitched data
-          let pathElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
-          pathElement.setAttribute("d", newData);
-          pathElement.setAttribute("fill", "none");
-
-          // Append the path to the SVG element
-          svgElement.appendChild(pathElement);
+          resultDiv.innerHTML += newData + "<br>";
         }
 
-        // Append the SVG element to the container
-        svgContainer.appendChild(svgElement);
-
-        // Append the SVG container to the result div
-        resultDiv.appendChild(svgContainer);
-
-        // Create a download link for each glitched result
-        createDownloadLink(newData, i);
-
-        // Append the result div to the output div
         outputDiv.appendChild(resultDiv);
-
-        // Increase corruption level for the next iteration
+        createDownloadLink(newData, i);
         corLevel += 500;
       }
       noLoop();
     }
+
 
     function createDownloadLink(data, index) {
       let downloadLink = document.createElement("a");
