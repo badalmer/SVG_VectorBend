@@ -124,11 +124,16 @@
         let svgContainer = document.createElement("iframe");
         let uniqueId = "svgFrame" + i;
         svgContainer.id = uniqueId;
-        svgContainer.onload = function() {
-          let processedSVG = createSVGElement(svgText); // Create processed SVG
-          svgContainer.contentDocument.body.appendChild(processedSVG); // Append processed SVG to iframe document
-        };
         resultDiv.appendChild(svgContainer);
+
+        let processedSVG = createSVGElement(svgText); // Create processed SVG
+
+        // Create a Blob from the processed SVG
+        let blob = new Blob([new XMLSerializer().serializeToString(processedSVG)], { type: "image/svg+xml" });
+        let url = URL.createObjectURL(blob);
+
+        // Update the iframe source with the processed SVG
+        svgContainer.src = url;
 
         for (let j = 0; j < svgText.length; j++) {
           if (j > 30) {
