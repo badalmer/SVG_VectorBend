@@ -171,15 +171,20 @@
 
 
     function createDownloadLink(data, index) {
+      let linkDiv = document.createElement("div");
+      linkDiv.classList.add("download-link");
+
       let downloadLink = document.createElement("a");
-      downloadLink.classList.add("download-link");
       downloadLink.innerHTML = "Download Result " + (index + 1);
       downloadLink.href = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(data);
       downloadLink.download = "result_" + (index + 1) + ".svg";
 
+      linkDiv.appendChild(downloadLink);
+
       let outputDiv = document.getElementById("output");
-      outputDiv.appendChild(downloadLink);
+      outputDiv.appendChild(linkDiv);
     }
+
 
     function RandPick() {
       let randomColor = "#" + ("00000" + ((Math.random() * 16777215 + 0.5) | 0).toString(16)).slice(-6);
