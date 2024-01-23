@@ -22,16 +22,15 @@
 
     #output {
       padding-top: 10px;
-      text-align: left;
+      text-align: center;
       font-size: 16px;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
+      align-items: center;
     }
 
     .result {
       margin-top: 20px;
-      text-align: left;
     }
 
     .download-link {
@@ -40,10 +39,6 @@
       color: #00CC55;
       cursor: pointer;
       text-decoration: underline;
-    }
-
-    iframe {
-      margin-bottom: 20px;
     }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
@@ -119,26 +114,13 @@
         let resultDiv = document.createElement("div");
         resultDiv.classList.add("result");
 
-        let svgContainer = document.createElement("iframe");
-        svgContainer.style.width = "100%";
-        svgContainer.style.height = "250px"; // Set the desired height
-
-        let originalSVG = createSVGElement(svgText);
-        let glitchedSVG = createSVGElement(svgText);
-
-        // Append the original SVG and glitched SVG to the iframe document
-        svgContainer.contentDocument.body.appendChild(originalSVG);
-        svgContainer.contentDocument.body.appendChild(glitchedSVG);
-
-        resultDiv.appendChild(svgContainer);
-
         for (let j = 0; j < svgText.length; j++) {
           if (j > 30) {
             for (let c = 0; c < corLevel; c++) {
               recolor(svgText[j]);
             }
           } else {
-          recolor(svgText[j]);
+            recolor(svgText[j]);
           }
           resultDiv.innerHTML += newData + "<br>";
         }
@@ -149,23 +131,6 @@
       }
       noLoop();
     }
-
-    function createSVGElement(svgText) {
-      let svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-      svgElement.setAttribute("width", "250");
-      svgElement.setAttribute("height", "250");
-
-      // Parse the original SVG text and create corresponding SVG elements
-      let parser = new DOMParser();
-      let originalDoc = parser.parseFromString(svgText.join('\n'), "image/svg+xml");
-      let originalSVG = originalDoc.documentElement.cloneNode(true);
-
-      // Append the original SVG element to the result div
-      svgElement.appendChild(originalSVG);
-
-      return svgElement;
-    }
-
 
     function createDownloadLink(data, index) {
       let downloadLink = document.createElement("a");
