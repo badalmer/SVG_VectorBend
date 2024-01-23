@@ -178,7 +178,9 @@
       let previewIframe = document.createElement("iframe");
       previewIframe.style.width = "100%";
       previewIframe.style.height = "250px"; // Set the desired height
-      previewIframe.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(data);
+
+      // Set the content of the iframe using srcdoc
+      previewIframe.srcdoc = data;
 
       resultDiv.appendChild(previewIframe);
 
