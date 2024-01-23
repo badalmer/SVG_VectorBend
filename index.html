@@ -115,24 +115,31 @@
         let resultDiv = document.createElement("div");
         resultDiv.classList.add("result");
 
+        let svgContainer = document.createElement("iframe");
+        svgContainer.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svgText.join('\n'));
+        svgContainer.style.width = "100%";
+        svgContainer.style.height = "250px"; // Set the desired height
+
+        resultDiv.appendChild(svgContainer);
+
         for (let j = 0; j < svgText.length; j++) {
           if (j > 30) {
-            for (let c = 0; c < corLevel; c++) {
-              recolor(svgText[j]);
-            }
-          } else {
+          for (let c = 0; c < corLevel; c++) {
             recolor(svgText[j]);
           }
-          resultDiv.innerHTML += newData + "<br>";
+        } else {
+          recolor(svgText[j]);
         }
-
-        outputDiv.appendChild(resultDiv);
-        createDownloadLink(newData, i);
-        corLevel += 500;
+        resultDiv.innerHTML += newData + "<br>";
       }
-      noLoop();
-    }
 
+      outputDiv.appendChild(resultDiv);
+      createDownloadLink(newData, i);
+      corLevel += 500;
+    }
+    noLoop();
+  }
+    
     function createDownloadLink(data, index) {
       let downloadLink = document.createElement("a");
       downloadLink.classList.add("download-link");
