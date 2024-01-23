@@ -44,6 +44,8 @@
 
     iframe {
       margin-bottom: 20px;
+      width: 100%;
+      height: 250px;
     }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
@@ -83,7 +85,7 @@
     }
 
     function draw() {
-      // Your draw function remains the same
+      // nothing to see here
     }
 
     function recolor(oldData) {
@@ -120,16 +122,16 @@
         resultDiv.classList.add("result");
 
         let svgContainer = document.createElement("iframe");
-        svgContainer.style.width = "100%";
-        svgContainer.style.height = "250px"; // Set the desired height
+        let uniqueId = "svgFrame" + i;
+        svgContainer.id = uniqueId;
+        svgContainer.onload = function() {
+          let originalSVG = createSVGElement(svgText);
+          let glitchedSVG = createSVGElement(svgText);
 
-        let originalSVG = createSVGElement(svgText);
-        let glitchedSVG = createSVGElement(svgText);
-
-        // Append the original SVG and glitched SVG to the iframe document
-        svgContainer.contentDocument.body.appendChild(originalSVG);
-        svgContainer.contentDocument.body.appendChild(glitchedSVG);
-
+          // Append the original SVG and glitched SVG to the iframe document
+          svgContainer.contentDocument.body.appendChild(originalSVG);
+          svgContainer.contentDocument.body.appendChild(glitchedSVG);
+        };
         resultDiv.appendChild(svgContainer);
 
         for (let j = 0; j < svgText.length; j++) {
@@ -138,7 +140,7 @@
               recolor(svgText[j]);
             }
           } else {
-          recolor(svgText[j]);
+            recolor(svgText[j]);
           }
           resultDiv.innerHTML += newData + "<br>";
         }
