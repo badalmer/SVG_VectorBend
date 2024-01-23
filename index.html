@@ -39,13 +39,24 @@
       cursor: pointer;
       text-decoration: underline;
     }
+
+    .svg-container {
+      width: 100%;
+      height: 250px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .svg-preview {
+      width: 48%;
+    }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
 </head>
 
 <body>
-  <h1>SVG Modifier</h1>
-  <p>Upload an SVG file to start the modification process.</p>
+  <h1>SVG Glitcher</h1>
+  <p>Upload an SVG file to start the glitch process.</p>
   <input type="file" id="fileInput" accept=".svg" onchange="handleFile(this.files)">
   <div id="output"></div>
 
@@ -54,15 +65,6 @@
     let newData;
     let numCopy = 2;
     let corLevel = 66;
-    let fileInput;
-
-    function setup() {
-      // Your setup function remains the same
-    }
-
-    function draw() {
-      // Your draw function remains the same
-    }
 
     function recolor(oldData) {
       let c = oldData.match(/fill:(.*?);}/);
@@ -93,29 +95,41 @@
         let resultDiv = document.createElement("div");
         resultDiv.classList.add("result");
 
-        let previewIframe = document.createElement("iframe");
-        previewIframe.style.width = "100%";
-        previewIframe.style.height = "250px"; // Set the desired height
-        previewIframe.srcdoc = svgText.join('\n');
+        let svgContainer = document.createElement("div");
+        svgContainer.classList.add("svg-container");
 
-        resultDiv.appendChild(previewIframe);
+        let originalIframe = document.createElement("iframe");
+        originalIframe.classList.add("svg-preview");
+        originalIframe.srcdoc = svgText.join('\n');
 
-        for (let j = 0; j < svgText.length; j++) {
-          if (j > 30) {
-            for (let c = 0; c < corLevel; c++) {
-              recolor(svgText[j]);
-            }
-          } else {
-            recolor(svgText[j]);
-          }
-          resultDiv.innerHTML += newData + "<br>";
-        }
+        recolorSVG();
+        
+        let modifiedIframe = document.createElement("iframe");
+        modifiedIframe.classList.add("svg-preview");
+        modifiedIframe.srcdoc = newData;
+
+        svgContainer.appendChild(originalIframe);
+        svgContainer.appendChild(modifiedIframe);
+
+        resultDiv.appendChild(svgContainer);
 
         outputDiv.appendChild(resultDiv);
         createDownloadLink(newData, i);
         corLevel += 500;
       }
       noLoop();
+    }
+
+    function recolorSVG() {
+      for (let j = 0; j < svgText.length; j++) {
+        if (j > 30) {
+          for (let c = 0; c < corLevel; c++) {
+            recolor(svgText[j]);
+          }
+        } else {
+          recolor(svgText[j]);
+        }
+      }
     }
 
     function createDownloadLink(data, index) {
